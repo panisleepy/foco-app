@@ -62,7 +62,7 @@ export function QuickThingsScreen({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.16, ease: "easeOut" }}
     >
       <header className="relative z-[1] mb-8 flex items-center justify-between text-white">
         <BackButton onClick={onBack} />
@@ -86,17 +86,15 @@ export function QuickThingsScreen({
             <Row checked={privacyAccepted} label="Privacy Policy" onToggle={onPrivacyToggle} />
           </div>
 
-          <motion.button
+          <button
             type="button"
             disabled={!canContinue}
             onClick={onContinue}
-            className="mt-10 flex w-full items-center justify-center gap-2 rounded-full bg-[#2D3A2D] py-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-white disabled:cursor-not-allowed disabled:opacity-40"
-            whileHover={canContinue ? { scale: 1.02 } : {}}
-            whileTap={canContinue ? { scale: 0.98 } : {}}
+            className={`mt-10 flex w-full items-center justify-center gap-2 rounded-full bg-[#2D3A2D] py-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-white transition-[transform] disabled:cursor-not-allowed disabled:opacity-40 ${canContinue ? "hover:scale-[1.02] active:scale-[0.98]" : ""}`}
           >
             Continue
             <ArrowRight className="h-4 w-4" strokeWidth={2} />
-          </motion.button>
+          </button>
         </GlassCard>
       </div>
     </motion.div>

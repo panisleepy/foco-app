@@ -48,13 +48,13 @@ export function WelcomeScreen({ onSocialContinue, onEmailContinue }: WelcomeScre
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.16, ease: "easeOut" }}
     >
       <motion.header
         className="mb-10 flex flex-col items-center text-white"
-        initial={{ opacity: 0, y: -10 }}
+        initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
       >
         <span className="font-serif text-[2.15rem] font-semibold tracking-[0.12em]">FOCO</span>
         <p className="mt-3 max-w-xs text-center text-sm font-sans font-medium text-zinc-400 dark:text-white/65">
@@ -69,36 +69,30 @@ export function WelcomeScreen({ onSocialContinue, onEmailContinue }: WelcomeScre
         <p className="mb-10 font-sans text-sm text-zinc-500 dark:text-white/70">Ready to focus?</p>
 
         <div className="flex justify-center gap-5">
-          <motion.button
+          <button
             type="button"
             aria-label="Continue with Apple"
             onClick={onSocialContinue}
-            className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200/90 bg-white/80 text-zinc-900 shadow-inner transition-[transform,box-shadow] hover:scale-[1.05] hover:shadow-lg dark:border-white/15 dark:bg-white/10 dark:text-white"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200/90 bg-white/80 text-zinc-900 shadow-inner transition-[transform,box-shadow] hover:scale-[1.05] hover:shadow-lg active:scale-[0.96] dark:border-white/15 dark:bg-white/10 dark:text-white"
           >
             <AppleMark className="h-7 w-7" />
-          </motion.button>
-          <motion.button
+          </button>
+          <button
             type="button"
             aria-label="Continue with Google"
             onClick={onSocialContinue}
-            className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200/90 bg-white/80 shadow-inner transition-[transform,box-shadow] hover:scale-[1.05] hover:shadow-lg dark:border-white/15 dark:bg-white/10"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200/90 bg-white/80 shadow-inner transition-[transform,box-shadow] hover:scale-[1.05] hover:shadow-lg active:scale-[0.96] dark:border-white/15 dark:bg-white/10"
           >
             <GoogleMark className="h-7 w-7" />
-          </motion.button>
-          <motion.button
+          </button>
+          <button
             type="button"
             aria-label="Continue with Email"
             onClick={onEmailContinue}
-            className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200/90 bg-white/80 text-zinc-900 shadow-inner transition-[transform,box-shadow] hover:scale-[1.05] hover:shadow-lg dark:border-white/15 dark:bg-white/10 dark:text-white"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
+            className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200/90 bg-white/80 text-zinc-900 shadow-inner transition-[transform,box-shadow] hover:scale-[1.05] hover:shadow-lg active:scale-[0.96] dark:border-white/15 dark:bg-white/10 dark:text-white"
           >
             <Mail className="h-7 w-7" strokeWidth={1.75} />
-          </motion.button>
+          </button>
         </div>
 
         <p className="mt-10 text-center font-sans text-[11px] leading-relaxed text-zinc-400 dark:text-white/55">

@@ -28,13 +28,13 @@ export function CreateAccountScreen({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.16, ease: "easeOut" }}
     >
       <motion.header
         className="mb-8 w-full max-w-md text-white"
-        initial={{ opacity: 0, y: -8 }}
+        initial={{ opacity: 0, y: -6 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.18, ease: "easeOut" }}
       >
         <div className="flex items-center justify-between">
           <BackButton onClick={onBackToWelcome} />
@@ -78,15 +78,13 @@ export function CreateAccountScreen({
           />
         </div>
 
-        <motion.button
+        <button
           type="button"
           onClick={onNext}
-          className="mt-10 flex w-full items-center justify-center rounded-full bg-[#2D3A2D] py-4 font-sans text-sm font-semibold uppercase tracking-[0.22em] text-white shadow-lg transition-[transform,box-shadow] dark:bg-[#2D3A2D]"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          className="mt-10 flex w-full items-center justify-center rounded-full bg-[#2D3A2D] py-4 font-sans text-sm font-semibold uppercase tracking-[0.22em] text-white shadow-lg transition-[transform,box-shadow] hover:scale-[1.02] active:scale-[0.98] dark:bg-[#2D3A2D]"
         >
           Next
-        </motion.button>
+        </button>
 
         <button
           type="button"

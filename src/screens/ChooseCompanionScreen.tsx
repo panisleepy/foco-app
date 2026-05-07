@@ -31,7 +31,7 @@ export function ChooseCompanionScreen({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.16, ease: "easeOut" }}
     >
       <header className="relative z-[1] mb-6 flex items-center justify-between text-white">
         <BackButton onClick={onBack} />
@@ -78,15 +78,14 @@ export function ChooseCompanionScreen({
           })}
         </div>
 
-        <motion.button
+        <button
           type="button"
           data-sound="off"
           onClick={onConfirm}
-          className="mt-10 w-full rounded-full bg-zinc-950 py-4 font-sans text-sm font-semibold text-white shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] dark:bg-white dark:text-black"
-          whileTap={{ scale: 0.98 }}
+          className="mt-10 w-full rounded-full bg-zinc-950 py-4 font-sans text-sm font-semibold text-white shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-black"
         >
           Confirm selection
-        </motion.button>
+        </button>
       </div>
     </motion.div>
   );

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSound } from "./audio/SoundProvider";
 import { BottomNav, type TabKey } from "./components/BottomNav";
 import { PageBackground } from "./components/PageBackground";
@@ -41,6 +41,18 @@ const XP_PER_POMO = 12;
 const POMODORO_MINUTES = 25;
 
 const PET_OPTIONS = ["🦊", "🐱", "🐶", "🐰"] as const;
+
+/** Shallow placeholders when `stage !== "main"` — avoids scanning logs/reflection data during onboarding */
+const STUB_DISTRACTION_BREAKDOWN = [
+  { name: "Phone", value: 0, color: "#2D3A2D" },
+  { name: "Social / notifications", value: 0, color: "#6B7280" },
+  { name: "Wandering thoughts", value: 0, color: "#9CA3AF" },
+  { name: "Fatigue", value: 0, color: "#D1D5DB" },
+  { name: "Other", value: 0, color: "#E5E7EB" },
+];
+
+const IDLE_INSIGHT_FALLBACK =
+  "Great momentum. Your distraction signals are low this week — keep the same routine for deep work blocks.";
 
 const EMPTY_ABOUT: AboutYouState = {
   lifestyle: [],
@@ -640,46 +652,95 @@ export default function App() {
   }, []);
 
   const showNav = stage === "main";
-  const todayFocusMinutes = focusLogs.filter((r) => {
-    const d = new Date(r.timestamp);
-    const n = new Date();
-    return d.getFullYear() === n.getFullYear() && d.getMonth() === n.getMonth() && d.getDate() === n.getDate();
-  }).reduce((sum, row) => sum + row.minutes, 0);
-  const distractionBreakdown = ["Phone", "Social / notifications", "Wandering thoughts", "Fatigue", "Other"].map(
-    (name, idx) => {
-      const id = ["phone", "social", "mind", "fatigue", "other"][idx];
-      const fromReflections = reflectionRecords.reduce(
-        (sum, r) => sum + (r.distractions.includes(id) ? 1 : 0),
-        0
-      );
-      const fromEarlyEnd = distractionReasonLog.filter((x) => x === id).length;
-      const value = fromReflections + fromEarlyEnd;
-      const colors = ["#2D3A2D", "#6B7280", "#9CA3AF", "#D1D5DB", "#E5E7EB"];
-      return { name, value, color: colors[idx] };
+
+  const {
+    todayFocusMinutes,
+    distractionBreakdown,
+    aiInsight,
+    focusStyleTags,
+    milestones,
+  } = useMemo(() => {
+    if (stage !== "main") {
+      return {
+        todayFocusMinutes: 0,
+        distractionBreakdown: STUB_DISTRACTION_BREAKDOWN,
+        aiInsight: IDLE_INSIGHT_FALLBACK,
+        focusStyleTags: [] as string[],
+        milestones: [] as string[],
+      };
     }
-  );
-  const aiInsight =
-    distractionBreakdown[0].value + distractionBreakdown[1].value + distractionBreakdown[2].value > 0
-      ? "You are most distracted by notifications and mind wandering. Try a stricter phone boundary during deep work."
-      : "Great momentum. Your distraction signals are low this week — keep the same routine for deep work blocks.";
-  const focusStyleTags = Array.from(
-    new Set([
-      ...aboutYou.focusType,
-      ...aboutYou.pursuits.slice(0, 2),
-      petXp >= 180 ? "Deep Worker" : "",
-      reflectionRecords.some((r) => (r.focusQuality || 0) >= 4) ? "Flow Seeker" : "",
-      reflectionRecords.some((r) => (r.mood || "").toLowerCase() === "calm") ? "Calm Finisher" : "",
-      "Night Owl",
-    ].filter(Boolean) as string[])
-  );
+
+    const n = new Date();
+    const todayFocusMinutes = focusLogs.reduce((sum, row) => {
+      const d = new Date(row.timestamp);
+      if (
+        d.getFullYear() !== n.getFullYear() ||
+        d.getMonth() !== n.getMonth() ||
+        d.getDate() !== n.getDate()
+      ) {
+        return sum;
+      }
+      return sum + row.minutes;
+    }, 0);
+
+    const distractionBreakdown = ["Phone", "Social / notifications", "Wandering thoughts", "Fatigue", "Other"].map(
+      (name, idx) => {
+        const id = ["phone", "social", "mind", "fatigue", "other"][idx];
+        const fromReflections = reflectionRecords.reduce(
+          (sum, r) => sum + (r.distractions.includes(id) ? 1 : 0),
+          0
+        );
+        const fromEarlyEnd = distractionReasonLog.filter((x) => x === id).length;
+        const value = fromReflections + fromEarlyEnd;
+        const colors = ["#2D3A2D", "#6B7280", "#9CA3AF", "#D1D5DB", "#E5E7EB"];
+        return { name, value, color: colors[idx] };
+      }
+    );
+
+    const aiInsight =
+      distractionBreakdown[0].value + distractionBreakdown[1].value + distractionBreakdown[2].value > 0
+        ? "You are most distracted by notifications and mind wandering. Try a stricter phone boundary during deep work."
+        : IDLE_INSIGHT_FALLBACK;
+
+    const focusStyleTags = Array.from(
+      new Set(
+        [
+          ...aboutYou.focusType,
+          ...aboutYou.pursuits.slice(0, 2),
+          petXp >= 180 ? "Deep Worker" : "",
+          reflectionRecords.some((r) => (r.focusQuality || 0) >= 4) ? "Flow Seeker" : "",
+          reflectionRecords.some((r) => (r.mood || "").toLowerCase() === "calm") ? "Calm Finisher" : "",
+          "Night Owl",
+        ].filter(Boolean) as string[]
+      )
+    );
+
+    const milestones = [
+      petXp >= 60 ? "Level Up I unlocked" : "",
+      petXp >= 180 ? "Level Up II unlocked" : "",
+      reflectionRecords.length >= 5 ? "5 sessions streak reached" : "",
+      historicalTasks.length >= 3 ? "Task finisher badge unlocked" : "",
+    ].filter(Boolean);
+
+    return {
+      todayFocusMinutes,
+      distractionBreakdown,
+      aiInsight,
+      focusStyleTags,
+      milestones,
+    };
+  }, [
+    stage,
+    focusLogs,
+    reflectionRecords,
+    distractionReasonLog,
+    aboutYou.focusType,
+    aboutYou.pursuits,
+    petXp,
+    historicalTasks.length,
+  ]);
 
   const displayLabel = nickname.trim() || displayName;
-  const milestones = [
-    petXp >= 60 ? "Level Up I unlocked" : "",
-    petXp >= 180 ? "Level Up II unlocked" : "",
-    reflectionRecords.length >= 5 ? "5 sessions streak reached" : "",
-    historicalTasks.length >= 3 ? "Task finisher badge unlocked" : "",
-  ].filter(Boolean);
 
   const handleSidebarAction = (item: SidebarItem) => {
     if (item === "guide") {
@@ -706,7 +767,7 @@ export default function App() {
       />
 
       <div className="relative z-10 min-h-full flex-1">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           {stage === "welcome" && (
             <WelcomeScreen
               key="flow-welcome"
