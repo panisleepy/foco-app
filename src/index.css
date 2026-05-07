@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glass: blur(20px); dark mode uses stronger contrast for readability */
+.glass-panel {
+  @apply rounded-3xl border border-white/20 bg-white/55 shadow-[0_8px_32px_rgba(0,0,0,0.06)] backdrop-blur-[20px];
+  @apply dark:border-white/20 dark:bg-black/35 dark:shadow-[0_12px_40px_rgba(0,0,0,0.45)];
+}
+
+.glass-nav {
+  @apply rounded-full border border-white/25 bg-white/45 shadow-[0_12px_40px_rgba(0,0,0,0.12)] backdrop-blur-[20px];
+  @apply dark:border-white/25 dark:bg-black/40 dark:shadow-[0_16px_48px_rgba(0,0,0,0.5)];
+}
+
+.header-glass {
+  @apply rounded-2xl border border-white/20 bg-black/25 backdrop-blur-[20px];
+}
+
+:root[data-theme="forest"] {
+  --foco-accent: #2d3a2d;
+}
+
+:root[data-theme="midnight"] {
+  --foco-accent: #1e3a5f;
+}
+
+:root[data-theme="charcoal"] {
+  --foco-accent: #2a2a2a;
+}
+
+@keyframes foco-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.88;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+}
+
+@keyframes foco-pet-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(18, 58, 38, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(25, 84, 51, 0.72));
+  }
+}
