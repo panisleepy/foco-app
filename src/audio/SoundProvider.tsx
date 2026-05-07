@@ -5,15 +5,13 @@ type SoundName =
   | "tap_01"
   | "type_01"
   | "toggle_on"
-  | "toggle_off"
   | "transition_up"
   | "notification"
-  | "celebration"
   | "ringtone_loop";
 
 type SoundContextValue = {
   play: (name: SoundName, volume?: number) => void;
-  playToggle: (on: boolean) => void;
+  playToggle: () => void;
   startLoop: (name: Extract<SoundName, "ringtone_loop">, volume?: number) => void;
   stopLoop: (name: Extract<SoundName, "ringtone_loop">) => void;
 };
@@ -22,10 +20,8 @@ const SOUND_FILES: Record<SoundName, string> = {
   tap_01: "/sounds/tap_01.wav",
   type_01: "/sounds/type_01.wav",
   toggle_on: "/sounds/toggle_on.wav",
-  toggle_off: "/sounds/toggle_off.wav",
   transition_up: "/sounds/transition_up.wav",
   notification: "/sounds/notification.wav",
-  celebration: "/sounds/celebration.wav",
   ringtone_loop: "/sounds/ringtone_loop.wav",
 };
 
@@ -57,12 +53,9 @@ export function SoundProvider({ children }: PropsWithChildren) {
     }
   }, []);
 
-  const playToggle = useCallback(
-    (on: boolean) => {
-      play(on ? "toggle_on" : "toggle_off", 0.5);
-    },
-    [play]
-  );
+  const playToggle = useCallback(() => {
+    play("toggle_on", 0.5);
+  }, [play]);
 
   const stopLoop = useCallback((name: "ringtone_loop") => {
     const current = loopsRef.current[name];

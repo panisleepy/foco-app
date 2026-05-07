@@ -2,11 +2,9 @@ Place your audio assets in this folder using these exact filenames:
 
 - `tap_01.wav`
 - `type_01.wav`
-- `toggle_on.wav`
-- `toggle_off.wav`
+- `toggle_on.wav` (played for both on and off toggle)
 - `transition_up.wav`
-- `notification.wav`
-- `celebration.wav`
+- `notification.wav` (also used when finishing companion selection)
 - `ringtone_loop.wav`
 
 Notes:

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { BackButton } from "../components/BackButton";
 import { GlassCard } from "../components/GlassCard";
+import { useSound } from "../audio/SoundProvider";
 import { cn } from "../utils/cn";
 
 const LIFESTYLE = ["Student", "Creator", "Professional"] as const;
@@ -44,6 +45,7 @@ function Pill({
   return (
     <motion.button
       type="button"
+      data-sound="off"
       onClick={onClick}
       className={cn(
         "rounded-full border px-4 py-2 font-sans text-[11px] font-medium transition-colors",
@@ -65,6 +67,7 @@ export function TellUsAboutYouScreen({
   onBack,
   displayNameLetter,
 }: TellUsAboutYouScreenProps) {
+  const { play } = useSound();
   const { lifestyle, pursuits, focusType } = value;
   const canContinue = lifestyle.length > 0 && pursuits.length > 0 && focusType.length > 0;
 
@@ -75,9 +78,14 @@ export function TellUsAboutYouScreen({
 
   const toggleCategory = (key: "lifestyle" | "pursuits" | "focusType", item: string) => {
     const source = value[key];
+    const wasSelected = source.includes(item);
     const set = new Set(source);
-    if (set.has(item)) set.delete(item);
-    else set.add(item);
+    if (wasSelected) {
+      set.delete(item);
+    } else {
+      set.add(item);
+      play("toggle_on", 0.34);
+    }
     onChange({ ...value, [key]: [...set] });
   };
 
@@ -87,6 +95,7 @@ export function TellUsAboutYouScreen({
     const source = value[key];
     if (!source.some((x) => x.toLowerCase() === text.toLowerCase())) {
       onChange({ ...value, [key]: [...source, text] });
+      play("toggle_on", 0.34);
     }
     if (key === "lifestyle") {
       setLifestyleOtherInput("");
@@ -140,7 +149,15 @@ export function TellUsAboutYouScreen({
                   {id}
                 </Pill>
               ))}
-              <Pill selected={showLifestyleOther} onClick={() => setShowLifestyleOther((v) => !v)}>
+              <Pill
+                selected={showLifestyleOther}
+                onClick={() => {
+                  setShowLifestyleOther((v) => {
+                    if (!v) play("toggle_on", 0.34);
+                    return !v;
+                  });
+                }}
+              >
                 + Other
               </Pill>
             </div>
@@ -189,7 +206,15 @@ export function TellUsAboutYouScreen({
                   {id}
                 </Pill>
               ))}
-              <Pill selected={showFocusOther} onClick={() => setShowFocusOther((v) => !v)}>
+              <Pill
+                selected={showFocusOther}
+                onClick={() => {
+                  setShowFocusOther((v) => {
+                    if (!v) play("toggle_on", 0.34);
+                    return !v;
+                  });
+                }}
+              >
                 + Other
               </Pill>
             </div>

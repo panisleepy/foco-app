@@ -764,7 +764,7 @@ export default function App() {
               selectedEmoji={petEmoji}
               onSelect={setPetEmoji}
               onConfirm={() => {
-                play("celebration", 0.75);
+                play("notification", 0.75);
                 triggerSparkleThenMain();
               }}
               onBack={() => setStage("legal")}

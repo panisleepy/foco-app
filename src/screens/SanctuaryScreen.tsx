@@ -289,7 +289,7 @@ export function SanctuaryScreen({
                         type="button"
                         onClick={() => {
                           updateSettings({ autoStartBreaks: !settings.autoStartBreaks });
-                          playToggle(!settings.autoStartBreaks);
+                          playToggle();
                         }}
                         className="flex w-full items-center justify-between rounded-xl border border-white/15 bg-white/10 px-3 py-2 font-sans text-sm text-white"
                       >
@@ -302,7 +302,7 @@ export function SanctuaryScreen({
                         type="button"
                         onClick={() => {
                           updateSettings({ autoStartPomodoros: !settings.autoStartPomodoros });
-                          playToggle(!settings.autoStartPomodoros);
+                          playToggle();
                         }}
                         className="flex w-full items-center justify-between rounded-xl border border-white/15 bg-white/10 px-3 py-2 font-sans text-sm text-white"
                       >
