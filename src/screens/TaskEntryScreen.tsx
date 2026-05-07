@@ -444,7 +444,7 @@ export function TaskEntryScreen({
                 className={cn(
                   "cursor-pointer px-3 py-3 outline-none transition-[transform,box-shadow] sm:px-4",
                   selected &&
-                    "ring-2 ring-[#2D3A2D]/85 ring-offset-2 ring-offset-transparent dark:ring-white/50 dark:ring-offset-transparent"
+                    "ring-2 ring-[var(--foco-accent)] ring-offset-2 ring-offset-transparent"
                 )}
               >
                 <div className="flex items-start gap-2 sm:gap-3">
@@ -603,7 +603,7 @@ export function TaskEntryScreen({
             type="button"
             disabled={!canStart}
             onClick={handleStart}
-            className="flex w-full items-center justify-center gap-2 rounded-full border border-zinc-900 bg-zinc-950 py-3.5 font-sans text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:bg-white dark:text-black"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-transparent bg-[var(--foco-accent)] py-3.5 font-sans text-sm font-semibold uppercase tracking-[0.18em] text-[var(--foco-accent-contrast)] shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
             whileTap={canStart ? { scale: 0.98 } : {}}
           >
             START
@@ -671,7 +671,7 @@ export function TaskEntryScreen({
                     else if (tourStep === 3) setTourStep(4);
                     else finishTour();
                   }}
-                  className="flex-1 rounded-full bg-zinc-950 py-1.5 font-sans text-[11px] font-semibold text-white dark:bg-white dark:text-black"
+                  className="flex-1 rounded-full bg-[var(--foco-accent)] py-1.5 font-sans text-[11px] font-semibold text-[var(--foco-accent-contrast)]"
                 >
                   {tourStep === 4 ? "Done" : "Next"}
                 </button>

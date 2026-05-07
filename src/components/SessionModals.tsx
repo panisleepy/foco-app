@@ -77,7 +77,7 @@ export function ReflectionModal({ open, onContinue, onSkip }: ReflectionModalPro
               </div>
               <div className="h-1.5 rounded-full bg-zinc-200/70 dark:bg-white/12">
                 <motion.div
-                  className="h-full rounded-full bg-[#2D3A2D] dark:bg-white/80"
+                  className="h-full rounded-full bg-[var(--foco-accent)]"
                   animate={{ width: `${(step / 3) * 100}%` }}
                   transition={{ duration: 0.28, ease: "easeOut" }}
                 />
@@ -149,7 +149,7 @@ export function ReflectionModal({ open, onContinue, onSkip }: ReflectionModalPro
                                 onClick={() => toggleDistraction(r.id)}
                                 className={`rounded-full border px-4 py-2 font-sans text-xs font-medium transition ${
                                   selected
-                                    ? "border-[#2D3A2D]/80 bg-[#2D3A2D]/85 text-white dark:border-white/45 dark:bg-white/20"
+                                    ? "border-[var(--foco-accent)] bg-[var(--foco-accent-soft)] text-zinc-900 dark:text-white"
                                     : "border-zinc-200/70 bg-white/40 text-zinc-800 backdrop-blur-md hover:bg-white/55 dark:border-white/20 dark:bg-white/8 dark:text-white"
                                 }`}
                               >
@@ -179,7 +179,7 @@ export function ReflectionModal({ open, onContinue, onSkip }: ReflectionModalPro
                                 onClick={() => setMood(m.id)}
                                 className={`rounded-2xl border px-3 py-3 text-left font-sans text-sm transition ${
                                   selected
-                                    ? "border-[#2D3A2D]/80 bg-[#2D3A2D]/85 text-white dark:border-white/45 dark:bg-white/20"
+                                    ? "border-[var(--foco-accent)] bg-[var(--foco-accent-soft)] text-zinc-900 dark:text-white"
                                     : "border-zinc-200/75 bg-white/40 text-zinc-800 backdrop-blur-md dark:border-white/20 dark:bg-white/8 dark:text-white"
                                 }`}
                               >
@@ -208,7 +208,7 @@ export function ReflectionModal({ open, onContinue, onSkip }: ReflectionModalPro
                 <button
                   type="button"
                   onClick={goNext}
-                  className="flex-1 rounded-full bg-[#2D3A2D] py-3 font-sans text-sm font-semibold text-white shadow-md transition hover:opacity-95 dark:bg-white dark:text-black"
+                  className="flex-1 rounded-full bg-[var(--foco-accent)] py-3 font-sans text-sm font-semibold text-[var(--foco-accent-contrast)] shadow-md transition hover:opacity-95"
                 >
                   {step === 3 ? "Continue" : "Next"}
                 </button>

@@ -60,7 +60,7 @@ export function OnboardingScreen({ name, onNameChange, onContinue, onBack }: Onb
           type="button"
           disabled={!canContinue}
           onClick={onContinue}
-          className={`flex w-full items-center justify-center rounded-full bg-[#2D3A2D] py-4 font-sans text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-lg shadow-black/10 transition-[transform,box-shadow] disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white dark:text-black ${
+          className={`flex w-full items-center justify-center rounded-full bg-[var(--foco-accent)] py-4 font-sans text-sm font-semibold uppercase tracking-[0.2em] text-[var(--foco-accent-contrast)] shadow-lg shadow-black/10 transition-[transform,box-shadow] disabled:cursor-not-allowed disabled:opacity-40 ${
             canContinue ? "hover:scale-[1.02] hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)] active:scale-[0.98]" : ""
           }`}
         >

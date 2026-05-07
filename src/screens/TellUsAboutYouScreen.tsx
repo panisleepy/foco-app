@@ -50,7 +50,7 @@ function Pill({
       className={cn(
         "rounded-full border px-4 py-2 font-sans text-[11px] font-medium transition-[transform,colors] active:scale-[0.96]",
         selected
-          ? "border-[#2D3A2D] bg-[#2D3A2D] text-white dark:border-[#2D3A2D] dark:bg-[#2D3A2D]"
+          ? "border-[var(--foco-accent)] bg-[var(--foco-accent)] text-[var(--foco-accent-contrast)]"
           : "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
       )}
     >
@@ -251,7 +251,7 @@ export function TellUsAboutYouScreen({
             onChange(local);
             onContinue();
           }}
-          className={`mt-12 flex w-full items-center justify-center gap-2 rounded-full bg-[#2D3A2D] py-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-white transition-[transform] disabled:cursor-not-allowed disabled:opacity-40 ${canContinue ? "hover:scale-[1.02] active:scale-[0.98]" : ""}`}
+          className={`mt-12 flex w-full items-center justify-center gap-2 rounded-full bg-[var(--foco-accent)] py-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-[var(--foco-accent-contrast)] transition-[transform] disabled:cursor-not-allowed disabled:opacity-40 ${canContinue ? "hover:scale-[1.02] active:scale-[0.98]" : ""}`}
         >
           Continue
           <ArrowRight className="h-4 w-4" strokeWidth={2} />

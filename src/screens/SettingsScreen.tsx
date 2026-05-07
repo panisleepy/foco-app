@@ -66,7 +66,7 @@ export function SettingsScreen({
       aria-checked={on}
       onClick={onToggle}
       className={`relative h-8 w-[52px] flex-shrink-0 rounded-full transition-colors ${
-        on ? "bg-[#2D3A2D]" : "bg-zinc-200 dark:bg-white/25"
+        on ? "bg-[var(--foco-accent)]" : "bg-zinc-200 dark:bg-white/25"
       }`}
     >
       <motion.span

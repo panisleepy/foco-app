@@ -66,7 +66,8 @@ export function ChooseCompanionScreen({
                 }}
                 className={cn(
                   "cursor-pointer px-4 py-6 text-center transition-[transform,box-shadow] hover:scale-[1.02]",
-                  selected && "ring-2 ring-[#2D3A2D] ring-offset-2 ring-offset-transparent dark:ring-white/60"
+                  selected &&
+                    "ring-2 ring-[var(--foco-accent)] ring-offset-2 ring-offset-transparent"
                 )}
               >
                 <div className="text-4xl leading-none">{emoji}</div>
@@ -82,7 +83,7 @@ export function ChooseCompanionScreen({
           type="button"
           data-sound="off"
           onClick={onConfirm}
-          className="mt-10 w-full rounded-full bg-zinc-950 py-4 font-sans text-sm font-semibold text-white shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-black"
+          className="mt-10 w-full rounded-full bg-[var(--foco-accent)] py-4 font-sans text-sm font-semibold text-[var(--foco-accent-contrast)] shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] active:scale-[0.98]"
         >
           Confirm selection
         </button>

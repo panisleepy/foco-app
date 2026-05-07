@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSound } from "./audio/SoundProvider";
 import { BottomNav, type TabKey } from "./components/BottomNav";
-import { PageBackground } from "./components/PageBackground";
+import { PageBackground, type UiBackdropId } from "./components/PageBackground";
 import { DistractionModal, ReflectionModal } from "./components/SessionModals";
 import { ShimmerOverlay } from "./components/ShimmerOverlay";
 import { ChooseCompanionScreen } from "./screens/ChooseCompanionScreen";
@@ -205,7 +205,7 @@ export default function App() {
   const [autoStartBreaks, setAutoStartBreaks] = useState(false);
   const [autoStartPomodoros, setAutoStartPomodoros] = useState(false);
   const [hourFormat, setHourFormat] = useState<"12h" | "24h">("24h");
-  const [themePreset, setThemePreset] = useState<"forest" | "midnight" | "charcoal">("forest");
+  const [uiBackdrop, setUiBackdrop] = useState<UiBackdropId>("noir");
   const [completedSinceLongBreak, setCompletedSinceLongBreak] = useState(0);
 
   const [petEmoji, setPetEmoji] = useState<string>(PET_OPTIONS[0]);
@@ -244,8 +244,8 @@ export default function App() {
   }, [darkTheme]);
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", themePreset);
-  }, [themePreset]);
+    document.documentElement.setAttribute("data-ui-backdrop", uiBackdrop);
+  }, [uiBackdrop]);
 
   useEffect(() => {
     if (prevTabRef.current !== tab && stage === "main") {
@@ -752,7 +752,7 @@ export default function App() {
 
   return (
     <div className="relative mx-auto flex min-h-full w-full max-w-[1200px] flex-col font-sans text-zinc-900 dark:text-white">
-      <PageBackground />
+      <PageBackground backdrop={uiBackdrop} />
       <ShimmerOverlay active={shimmer} />
 
       <ReflectionModal
@@ -923,7 +923,7 @@ export default function App() {
                   autoStartBreaks,
                   autoStartPomodoros,
                   hourFormat,
-                  themePreset,
+                  uiBackdrop,
                 }}
                 onSettingsChange={(next) => {
                   setPomodoroMinutes(Math.max(1, Math.round(next.pomodoroMinutes)));
@@ -933,7 +933,7 @@ export default function App() {
                   setAutoStartBreaks(Boolean(next.autoStartBreaks));
                   setAutoStartPomodoros(Boolean(next.autoStartPomodoros));
                   setHourFormat(next.hourFormat);
-                  setThemePreset(next.themePreset);
+                  setUiBackdrop(next.uiBackdrop);
                   play("transition_up", 0.45);
                 }}
               />

@@ -81,7 +81,7 @@ export function CreateAccountScreen({
         <button
           type="button"
           onClick={onNext}
-          className="mt-10 flex w-full items-center justify-center rounded-full bg-[#2D3A2D] py-4 font-sans text-sm font-semibold uppercase tracking-[0.22em] text-white shadow-lg transition-[transform,box-shadow] hover:scale-[1.02] active:scale-[0.98] dark:bg-[#2D3A2D]"
+          className="mt-10 flex w-full items-center justify-center rounded-full bg-[var(--foco-accent)] py-4 font-sans text-sm font-semibold uppercase tracking-[0.22em] text-[var(--foco-accent-contrast)] shadow-lg transition-[transform,box-shadow] hover:scale-[1.02] active:scale-[0.98]"
         >
           Next
         </button>

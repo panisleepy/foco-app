@@ -214,7 +214,7 @@ export function FocusScreen({
             type="button"
             disabled={!canStart}
             onClick={onStartSession}
-            className="mt-8 w-full max-w-sm rounded-full border border-zinc-900 bg-zinc-950 py-4 font-sans text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:bg-white dark:text-black"
+            className="mt-8 w-full max-w-sm rounded-full border border-transparent bg-[var(--foco-accent)] py-4 font-sans text-sm font-semibold uppercase tracking-[0.2em] text-[var(--foco-accent-contrast)] shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
             whileTap={canStart ? { scale: 0.98 } : {}}
           >
             Start

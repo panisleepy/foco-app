@@ -14,6 +14,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --foco-accent: #27272a;
+  --foco-accent-contrast: #ffffff;
+  --foco-accent-soft: rgba(39, 39, 42, 0.18);
+}
+
 /* Glass: reads as solid panel so text never picks up background gradient bleed-through */
 .glass-panel {
   @apply rounded-3xl border border-zinc-200/80 bg-white/95 shadow-[0_10px_40px_rgba(15,23,42,0.08)] backdrop-blur-[28px];
@@ -26,19 +32,37 @@ body {
 }
 
 .header-glass {
-  @apply rounded-2xl border border-white/20 bg-black/25 backdrop-blur-[20px];
+  @apply rounded-2xl border border-white/20 backdrop-blur-[20px];
+  background-color: var(--foco-header-bg, rgba(0, 0, 0, 0.25));
 }
 
-:root[data-theme="forest"] {
-  --foco-accent: #2d3a2d;
+/* Accent token for future UI (matches active backdrop in My Space → Settings) */
+:root[data-ui-backdrop="noir"] {
+  --foco-accent: #27272a;
+  --foco-accent-contrast: #ffffff;
+  --foco-accent-soft: rgba(39, 39, 42, 0.2);
+  --foco-header-bg: rgba(0, 0, 0, 0.25);
 }
 
-:root[data-theme="midnight"] {
-  --foco-accent: #1e3a5f;
+:root[data-ui-backdrop="blue"] {
+  --foco-accent: #1d4ed8;
+  --foco-accent-contrast: #ffffff;
+  --foco-accent-soft: rgba(29, 78, 216, 0.2);
+  --foco-header-bg: rgba(15, 23, 42, 0.28);
 }
 
-:root[data-theme="charcoal"] {
-  --foco-accent: #2a2a2a;
+:root[data-ui-backdrop="green"] {
+  --foco-accent: #166534;
+  --foco-accent-contrast: #ffffff;
+  --foco-accent-soft: rgba(22, 101, 52, 0.2);
+  --foco-header-bg: rgba(5, 46, 22, 0.28);
+}
+
+:root[data-ui-backdrop="bluePink"] {
+  --foco-accent: #111827;
+  --foco-accent-contrast: #ffffff;
+  --foco-accent-soft: rgba(17, 24, 39, 0.2);
+  --foco-header-bg: rgba(30, 41, 59, 0.38);
 }
 
 @keyframes foco-breathe {

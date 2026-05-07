@@ -4,6 +4,11 @@ import { Bell, Menu, Package, Settings2, Share2, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useSound } from "../audio/SoundProvider";
 import { GlassCard } from "../components/GlassCard";
+import {
+  UI_BACKDROP_OPTIONS,
+  UI_BACKDROP_SWATCH,
+  type UiBackdropId,
+} from "../components/PageBackground";
 
 type BackpackRow = { id: string; name: string; qty: number; description: string };
 
@@ -25,7 +30,7 @@ type SanctuaryScreenProps = {
     autoStartBreaks: boolean;
     autoStartPomodoros: boolean;
     hourFormat: "12h" | "24h";
-    themePreset: "forest" | "midnight" | "charcoal";
+    uiBackdrop: UiBackdropId;
   };
   onSettingsChange: (next: SanctuaryScreenProps["settings"]) => void;
 };
@@ -126,7 +131,7 @@ export function SanctuaryScreen({
               </p>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-zinc-200/80 dark:bg-white/15">
                 <motion.div
-                  className="h-full rounded-full bg-[#2D3A2D] dark:bg-white"
+                  className="h-full rounded-full bg-[var(--foco-accent)]"
                   initial={false}
                   animate={{ width: `${Math.min(100, (xpInLevel / xpForNext) * 100)}%` }}
                 />
@@ -162,7 +167,7 @@ export function SanctuaryScreen({
                 <button
                   type="button"
                   onClick={() => onUseBackpackItem(it.id)}
-                  className="mt-2 w-full rounded-full bg-[#2D3A2D] px-3 py-1.5 font-sans text-[11px] font-semibold text-white dark:bg-white dark:text-black"
+                  className="mt-2 w-full rounded-full bg-[var(--foco-accent)] px-3 py-1.5 font-sans text-[11px] font-semibold text-[var(--foco-accent-contrast)]"
                 >
                   Use
                 </button>
@@ -317,22 +322,31 @@ export function SanctuaryScreen({
                   <section className="rounded-2xl border border-white/15 bg-white/10 p-4">
                     <p className="mb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-white">Theme & Format</p>
                     <div className="mb-3">
-                      <p className="mb-2 font-sans text-[10px] text-white">Color Themes</p>
-                      <div className="flex gap-2">
-                        {[
-                          ["forest", "#2D3A2D"],
-                          ["midnight", "#1E3A5F"],
-                          ["charcoal", "#2A2A2A"],
-                        ].map(([name, color]) => (
-                          <button
-                            key={name}
-                            type="button"
-                            onClick={() => updateSettings({ themePreset: name as SanctuaryScreenProps["settings"]["themePreset"] })}
-                            className={`h-8 w-8 rounded-lg border ${settings.themePreset === name ? "border-white" : "border-transparent"}`}
-                            style={{ background: color }}
-                            aria-label={`Theme ${name}`}
-                          />
-                        ))}
+                      <p className="mb-1 font-sans text-[10px] text-white">UI Backdrop</p>
+                      <p className="mb-3 font-sans text-[9px] leading-snug text-white/60">
+                        Applies to the full-page gradient and color tone.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {UI_BACKDROP_OPTIONS.map(({ id, label }) => {
+                          const selected = settings.uiBackdrop === id;
+                          return (
+                            <button
+                              key={id}
+                              type="button"
+                              onClick={() => updateSettings({ uiBackdrop: id })}
+                              className={`flex flex-col items-center gap-1.5 rounded-xl border px-2 py-2 transition-colors ${selected ? "border-white bg-white/15" : "border-white/15 bg-white/5 hover:bg-white/10"}`}
+                              aria-label={label}
+                            >
+                              <span
+                                className="h-9 w-[3.25rem] rounded-lg border border-white/20 shadow-sm"
+                                style={{ background: UI_BACKDROP_SWATCH[id] }}
+                              />
+                              <span className="max-w-[4.75rem] text-center font-sans text-[9px] font-medium leading-tight text-white">
+                                {label}
+                              </span>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                     <div>
