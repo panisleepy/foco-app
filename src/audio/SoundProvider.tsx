@@ -7,6 +7,7 @@ type SoundName =
   | "toggle_on"
   | "transition_up"
   | "notification"
+  | "celebration"
   | "ringtone_loop";
 
 type SoundContextValue = {
@@ -22,6 +23,7 @@ const SOUND_FILES: Record<SoundName, string> = {
   toggle_on: "/sounds/toggle_on.wav",
   transition_up: "/sounds/transition_up.wav",
   notification: "/sounds/notification.wav",
+  celebration: "/sounds/celebration.wav",
   ringtone_loop: "/sounds/ringtone_loop.wav",
 };
 

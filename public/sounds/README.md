@@ -4,7 +4,8 @@ Place your audio assets in this folder using these exact filenames:
 - `type_01.wav`
 - `toggle_on.wav` (played for both on and off toggle)
 - `transition_up.wav`
-- `notification.wav` (also used when finishing companion selection)
+- `notification.wav`
+- `celebration.wav` (companion selection confirm)
 - `ringtone_loop.wav`
 
 Notes:

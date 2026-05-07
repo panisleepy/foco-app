@@ -36,7 +36,7 @@ export type TaskItem = {
   id: string;
   label: string;
   icon: string;
-  /** Planned pomodoros (1–5); each block is 25 minutes */
+  /** Planned pomodoros (1–5); each block follows Settings → Pomodoro length */
   estimatePomodoros: number;
   /** Logged completed pomodoros — may exceed estimate until the task is archived */
   completedPomodoros: number;
@@ -51,8 +51,6 @@ export type HistoricalTaskItem = {
   actualPomodoros: number;
   completedAt: number;
 };
-
-const MINUTES_PER_POMO = 25;
 
 const TASK_ICONS: { id: string; Icon: LucideIcon }[] = [
   { id: "book", Icon: BookOpen },
@@ -106,6 +104,8 @@ type TaskEntryScreenProps = {
   onStartSession: () => void;
   onReuseTask: (task: TaskItem) => void;
   onOpenMenu?: () => void;
+  /** Focus length from Settings; used for “plan min” math on each task */
+  pomodoroMinutes: number;
 };
 
 export function TaskEntryScreen({
@@ -124,7 +124,9 @@ export function TaskEntryScreen({
   onStartSession,
   onReuseTask,
   onOpenMenu,
+  pomodoroMinutes,
 }: TaskEntryScreenProps) {
+  const minutesPerPomo = Math.max(1, Math.round(pomodoroMinutes));
   const { play } = useSound();
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedIconId, setSelectedIconId] = useState("book");
@@ -490,7 +492,7 @@ export function TaskEntryScreen({
                       </div>
                     </div>
                     <p className="mt-2 pl-[2.75rem] font-sans text-[11px] leading-snug text-zinc-600 dark:text-white/65">
-                      Plan {MINUTES_PER_POMO * est} min ({est}×{MINUTES_PER_POMO} min)
+                      Plan {minutesPerPomo * est} min ({est}×{minutesPerPomo} min)
                     </p>
                     <p className="mt-0.5 pl-[2.75rem] font-sans text-[11px] tabular-nums text-zinc-700 dark:text-white/70">
                       Logged {t.completedPomodoros} session{t.completedPomodoros !== 1 ? "s" : ""}
@@ -547,8 +549,8 @@ export function TaskEntryScreen({
             <div className="space-y-2">
               {historicalTasks.slice(0, 3).map((h) => {
                 const Ico = getIconComponent(h.icon);
-                const estMin = h.estimatePomodoros * MINUTES_PER_POMO;
-                const actMin = h.actualPomodoros * MINUTES_PER_POMO;
+                const estMin = h.estimatePomodoros * minutesPerPomo;
+                const actMin = h.actualPomodoros * minutesPerPomo;
                 return (
                   <GlassCard key={h.id} className="px-3 py-3 opacity-95 sm:px-4">
                     <div className="flex items-start gap-3">
@@ -631,7 +633,8 @@ export function TaskEntryScreen({
                   </p>
                   <p className="mt-1.5 font-sans text-[11px] font-medium leading-snug text-zinc-900 dark:text-white">
                     {tourStep === 1 && "Define your focus here."}
-                    {tourStep === 2 && "Estimate your effort in 25-min blocks."}
+                    {tourStep === 2 &&
+                      `Estimate your effort in ${minutesPerPomo}-min blocks.`}
                     {tourStep === 3 &&
                       "Meet your pet here. Focus to help them grow and earn items."}
                     {tourStep === 4 && "Enter your focus sanctuary whenever you're ready."}

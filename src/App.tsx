@@ -208,6 +208,8 @@ export default function App() {
   ]);
 
   const shimmerTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const companionConfirmLockRef = useRef(false);
+  const prevStageForCompanionLockRef = useRef<Stage>(stage);
   const prevTabRef = useRef(tab);
   const prevStageRef = useRef(stage);
 
@@ -246,6 +248,14 @@ export default function App() {
     }
     prevStageRef.current = stage;
   }, [stage, play]);
+
+  useEffect(() => {
+    const prev = prevStageForCompanionLockRef.current;
+    if (stage === "companion" && prev !== "companion") {
+      companionConfirmLockRef.current = false;
+    }
+    prevStageForCompanionLockRef.current = stage;
+  }, [stage]);
 
   useEffect(() => {
     if (showReflect) startLoop("ringtone_loop", 0.62);
@@ -764,7 +774,10 @@ export default function App() {
               selectedEmoji={petEmoji}
               onSelect={setPetEmoji}
               onConfirm={() => {
-                play("notification", 0.75);
+                if (companionConfirmLockRef.current) return;
+                if (!displayName.trim()) return;
+                companionConfirmLockRef.current = true;
+                play("celebration", 0.72);
                 triggerSparkleThenMain();
               }}
               onBack={() => setStage("legal")}
@@ -789,6 +802,7 @@ export default function App() {
               onStartSession={startSession}
               onReuseTask={reuseTaskDraft}
               onOpenMenu={() => setSidebarOpen(true)}
+              pomodoroMinutes={pomodoroMinutes}
             />
           )}
           {stage === "main" && tab === "focus" && (

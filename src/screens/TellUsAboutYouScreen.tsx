@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { ArrowRight } from "lucide-react";
 import { BackButton } from "../components/BackButton";
 import { GlassCard } from "../components/GlassCard";
@@ -43,20 +43,19 @@ function Pill({
   onClick: () => void;
 }) {
   return (
-    <motion.button
+    <button
       type="button"
       data-sound="off"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-4 py-2 font-sans text-[11px] font-medium transition-colors",
+        "rounded-full border px-4 py-2 font-sans text-[11px] font-medium transition-[transform,colors] active:scale-[0.96]",
         selected
           ? "border-[#2D3A2D] bg-[#2D3A2D] text-white dark:border-[#2D3A2D] dark:bg-[#2D3A2D]"
           : "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
       )}
-      whileTap={{ scale: 0.95 }}
     >
       {children}
-    </motion.button>
+    </button>
   );
 }
 
@@ -68,7 +67,14 @@ export function TellUsAboutYouScreen({
   displayNameLetter,
 }: TellUsAboutYouScreenProps) {
   const { play } = useSound();
-  const { lifestyle, pursuits, focusType } = value;
+  const [, startTransition] = useTransition();
+  const [local, setLocal] = useState(value);
+
+  useEffect(() => {
+    setLocal(value);
+  }, [value]);
+
+  const { lifestyle, pursuits, focusType } = local;
   const canContinue = lifestyle.length > 0 && pursuits.length > 0 && focusType.length > 0;
 
   const [showLifestyleOther, setShowLifestyleOther] = useState(false);
@@ -77,7 +83,7 @@ export function TellUsAboutYouScreen({
   const [focusOtherInput, setFocusOtherInput] = useState("");
 
   const toggleCategory = (key: "lifestyle" | "pursuits" | "focusType", item: string) => {
-    const source = value[key];
+    const source = local[key];
     const wasSelected = source.includes(item);
     const set = new Set(source);
     if (wasSelected) {
@@ -86,15 +92,19 @@ export function TellUsAboutYouScreen({
       set.add(item);
       play("toggle_on", 0.34);
     }
-    onChange({ ...value, [key]: [...set] });
+    const next = { ...local, [key]: [...set] };
+    setLocal(next);
+    startTransition(() => onChange(next));
   };
 
   const submitOther = (key: "lifestyle" | "focusType", raw: string) => {
     const text = raw.trim();
     if (!text) return;
-    const source = value[key];
+    const source = local[key];
     if (!source.some((x) => x.toLowerCase() === text.toLowerCase())) {
-      onChange({ ...value, [key]: [...source, text] });
+      const next = { ...local, [key]: [...source, text] };
+      setLocal(next);
+      startTransition(() => onChange(next));
       play("toggle_on", 0.34);
     }
     if (key === "lifestyle") {
@@ -235,8 +245,12 @@ export function TellUsAboutYouScreen({
 
         <motion.button
           type="button"
+          data-sound="off"
           disabled={!canContinue}
-          onClick={onContinue}
+          onClick={() => {
+            onChange(local);
+            onContinue();
+          }}
           className="mt-12 flex w-full items-center justify-center gap-2 rounded-full bg-[#2D3A2D] py-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-white disabled:cursor-not-allowed disabled:opacity-40"
           whileHover={canContinue ? { scale: 1.02 } : {}}
           whileTap={canContinue ? { scale: 0.98 } : {}}

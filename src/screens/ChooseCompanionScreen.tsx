@@ -80,6 +80,7 @@ export function ChooseCompanionScreen({
 
         <motion.button
           type="button"
+          data-sound="off"
           onClick={onConfirm}
           className="mt-10 w-full rounded-full bg-zinc-950 py-4 font-sans text-sm font-semibold text-white shadow-xl transition-[transform,box-shadow] hover:scale-[1.02] dark:bg-white dark:text-black"
           whileTap={{ scale: 0.98 }}
