@@ -419,7 +419,7 @@ export function TaskEntryScreen({
         </p>
         <div className="space-y-2">
           {tasks.length === 0 && (
-            <p className="rounded-2xl border border-dashed border-zinc-300/80 bg-white/30 py-8 text-center font-sans text-sm text-zinc-500 dark:border-white/20 dark:bg-white/5 dark:text-white/60">
+            <p className="rounded-2xl border border-dashed border-zinc-300/80 bg-white/90 py-8 text-center font-sans text-sm text-zinc-500 backdrop-blur-sm dark:border-white/20 dark:bg-zinc-950/85 dark:text-white/70">
               No tasks yet — add one above.
             </p>
           )}

@@ -43,7 +43,7 @@ export function CreateAccountScreen({
         </div>
       </motion.header>
 
-      <GlassCard className="w-full max-w-md border-zinc-200/80 bg-white/88 px-7 py-9 shadow-[0_20px_60px_rgba(0,0,0,0.12)] dark:border-zinc-200/70 dark:bg-white/88">
+      <GlassCard className="w-full max-w-md px-7 py-9 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
         <h1 className="font-serif text-2xl font-semibold tracking-tight text-zinc-900 dark:text-white">
           Create account
         </h1>

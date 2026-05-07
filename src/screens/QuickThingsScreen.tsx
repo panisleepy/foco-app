@@ -73,7 +73,7 @@ export function QuickThingsScreen({
       </header>
 
       <div className="relative z-[1] mx-auto w-full max-w-md flex-1">
-        <GlassCard className="border-zinc-200/80 bg-white/88 px-6 py-8 dark:border-zinc-200/70 dark:bg-white/88">
+        <GlassCard className="px-6 py-8">
           <h1 className="font-serif text-[1.45rem] font-semibold tracking-tight text-zinc-900 dark:text-white">
             A few quick things
           </h1>

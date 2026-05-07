@@ -149,7 +149,7 @@ export function SanctuaryScreen({
             {backpack.map((it) => (
               <div
                 key={it.id}
-                className="rounded-2xl border border-zinc-200/70 bg-white/45 p-3 dark:border-white/15 dark:bg-white/8"
+                className="rounded-2xl border border-zinc-200/80 bg-white/95 p-3 dark:border-white/12 dark:bg-zinc-900/80"
               >
                 <div className="mb-2 flex items-center justify-between">
                   <Package className="h-4 w-4 text-zinc-700 dark:text-white" />

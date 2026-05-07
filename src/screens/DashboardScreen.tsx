@@ -248,7 +248,7 @@ export function DashboardScreen({
 
         <div className="mb-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
           {metricCards.map((card) => (
-            <GlassCard key={card.label} className="border-zinc-200/80 bg-white/88 px-3 py-3 dark:border-zinc-200/80 dark:bg-white/88">
+            <GlassCard key={card.label} className="px-3 py-3">
               <div className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900/8 text-zinc-900">
                 <card.icon className="h-4 w-4" />
               </div>
@@ -258,7 +258,7 @@ export function DashboardScreen({
           ))}
         </div>
 
-        <GlassCard className="mb-4 border-zinc-200/80 bg-white/88 px-5 py-6 dark:border-zinc-200/80 dark:bg-white/88">
+        <GlassCard className="mb-4 px-5 py-6">
           <div className="mb-4 inline-flex rounded-full border border-zinc-200 bg-white p-1">
             {(["week", "month", "year"] as const).map((r) => (
               <button
@@ -324,7 +324,7 @@ export function DashboardScreen({
         <AnimatePresence mode="wait">
           {view === "summary" ? (
             <motion.div key="summary" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
-              <GlassCard className="mb-4 border-zinc-200/80 bg-white/88 px-5 py-6 dark:border-zinc-200/80 dark:bg-white/88">
+              <GlassCard className="mb-4 px-5 py-6">
                 <p className="mb-5 font-serif text-lg font-semibold text-zinc-900">Distraction breakdown</p>
                 <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between">
                   <div className="relative mx-auto h-44 w-44 flex-shrink-0">
@@ -354,7 +354,7 @@ export function DashboardScreen({
                 </div>
               </GlassCard>
 
-              <GlassCard className="border-zinc-200/80 bg-white/88 px-5 py-6 dark:border-zinc-200/80 dark:bg-white/88">
+              <GlassCard className="px-5 py-6">
                 <div className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 bg-white">
                   <Sparkles className="h-4 w-4 text-zinc-700" />
                 </div>
@@ -367,7 +367,7 @@ export function DashboardScreen({
             </motion.div>
           ) : (
             <motion.div key="detail" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
-              <GlassCard className="border-zinc-200/80 bg-white/88 px-4 py-5 sm:px-5 dark:border-zinc-200/80 dark:bg-white/88">
+              <GlassCard className="px-4 py-5 sm:px-5">
                 <div className="mb-3 flex items-center justify-between">
                   <p className="font-serif text-lg font-semibold text-zinc-900">Focus Time Detail</p>
                   <button type="button" onClick={() => downloadCsv(focusLogs)} className="rounded-full border border-zinc-300 p-2 text-zinc-700 hover:bg-zinc-100" aria-label="Download data" title="Download data">

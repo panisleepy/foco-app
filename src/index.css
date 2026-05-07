@@ -14,15 +14,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glass: blur(20px); dark mode uses stronger contrast for readability */
+/* Glass: reads as solid panel so text never picks up background gradient bleed-through */
 .glass-panel {
-  @apply rounded-3xl border border-white/20 bg-white/55 shadow-[0_8px_32px_rgba(0,0,0,0.06)] backdrop-blur-[20px];
-  @apply dark:border-white/20 dark:bg-black/35 dark:shadow-[0_12px_40px_rgba(0,0,0,0.45)];
+  @apply rounded-3xl border border-zinc-200/80 bg-white/95 shadow-[0_10px_40px_rgba(15,23,42,0.08)] backdrop-blur-[28px];
+  @apply dark:border-white/10 dark:bg-zinc-950/90 dark:text-white dark:shadow-[0_14px_48px_rgba(0,0,0,0.55)];
 }
 
 .glass-nav {
-  @apply rounded-full border border-white/25 bg-white/45 shadow-[0_12px_40px_rgba(0,0,0,0.12)] backdrop-blur-[20px];
-  @apply dark:border-white/25 dark:bg-black/40 dark:shadow-[0_16px_48px_rgba(0,0,0,0.5)];
+  @apply rounded-full border border-zinc-200/80 bg-white/90 shadow-[0_12px_40px_rgba(15,23,42,0.1)] backdrop-blur-[26px];
+  @apply dark:border-white/10 dark:bg-zinc-950/90 dark:shadow-[0_16px_48px_rgba(0,0,0,0.5)];
 }
 
 .header-glass {

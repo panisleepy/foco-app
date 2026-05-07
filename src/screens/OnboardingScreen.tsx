@@ -37,7 +37,7 @@ export function OnboardingScreen({ name, onNameChange, onContinue, onBack }: Onb
         </p>
       </motion.header>
 
-      <GlassCard className="w-full max-w-md border-zinc-200/80 bg-white/88 px-7 py-9 dark:border-zinc-200/70 dark:bg-white/88">
+      <GlassCard className="w-full max-w-md px-7 py-9">
         <div className="mb-8 flex justify-center">
           <Sparkles className="h-6 w-6 text-zinc-800 dark:text-white" aria-hidden />
         </div>

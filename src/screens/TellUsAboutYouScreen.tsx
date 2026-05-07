@@ -126,7 +126,7 @@ export function TellUsAboutYouScreen({
         Refined onboarding setup
       </p>
 
-      <GlassCard className="relative z-[1] flex flex-col border-zinc-200/80 bg-white/88 px-6 py-8 pb-10 dark:border-zinc-200/70 dark:bg-white/88">
+      <GlassCard className="relative z-[1] flex flex-col px-6 py-8 pb-10">
         <h1 className="font-serif text-[1.45rem] font-semibold leading-tight text-zinc-900 dark:text-white">
           Tell us about you
         </h1>
